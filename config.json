@@ -28,5 +28,5 @@
     "MTX_PATHS_ALL_RUNONDEMANDRESTART": "str",
     "MTX_PATHS_CAM_SOURCE": "str"
   },
-  "image": "bluenviron/mediamtx"
+  "image": "bluenviron/mediamtx:latest"
 }
