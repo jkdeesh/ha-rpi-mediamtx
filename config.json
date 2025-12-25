@@ -12,13 +12,13 @@
   "boot": "auto",
   "legacy": true,
   "ports": {
-    "8554/tcp": 8554,
-    "1935/tcp": 1935
+    "8554/tcp": 8555,
+    "1935/tcp": 1936
   },
   "map": [
     "ssl:default->:8555",
-    "rtsp:tcp->:8554",
-    "rtmp:tcp->:1935"
+    "rtsp:tcp->:8555",
+    "rtmp:tcp->:1936"
   ],
   "startup": "application",
   "image": "bluenviron/mediamtx",
