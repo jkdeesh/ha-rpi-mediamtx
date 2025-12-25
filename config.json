@@ -3,25 +3,18 @@
   "version": "latest",
   "slug": "mediamtx",
   "description": "Create RTSP / WebRTC server to broadcast streams, thanks to https://github.com/bluenviron/mediamtx",
-  "arch": [
-    "aarch64",
-    "amd64",
-    "armhf",
-    "armv7"
-  ],
+  "arch": ["aarch64", "amd64", "armhf", "armv7"],
   "boot": "auto",
-  "legacy": true,
-  "ports": {
-    "8554/tcp": 8555,
-    "1935/tcp": 1936
-  },
   "map": [
-    "ssl:default->:8555",
-    "rtsp:tcp->:8555",
-    "rtmp:tcp->:1936"
+    "rtsp:tcp->:8554",
+    "rtmp:tcp->:1935"
   ],
   "startup": "application",
   "image": "bluenviron/mediamtx",
+  "ports": {
+    "8556/tcp": 8554,    // ← Host 8556 → Container 8554
+    "1936/tcp": 1935     // ← Host 1936 → Container 1935
+  },
   "options": {
     "MTX_PROTOCOLS": "tcp",
     "MTX_PATHS_ALL_RUNONDEMAND": "echo 'incoming'",
