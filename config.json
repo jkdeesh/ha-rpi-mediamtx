@@ -15,7 +15,13 @@
     "8554/tcp": 8554,
     "1935/tcp": 1935
   },
+  "map": [
+    "ssl:default->:8555",
+    "rtsp:tcp->:8554",
+    "rtmp:tcp->:1935"
+  ],
   "startup": "application",
+  "image": "bluenviron/mediamtx",
   "options": {
     "MTX_PROTOCOLS": "tcp",
     "MTX_PATHS_ALL_RUNONDEMAND": "echo 'incoming'",
@@ -27,6 +33,5 @@
     "MTX_PATHS_ALL_RUNONDEMAND": "str",
     "MTX_PATHS_ALL_RUNONDEMANDRESTART": "str",
     "MTX_PATHS_CAM_SOURCE": "str"
-  },
-  "image": "bluenviron/mediamtx:latest"
+  }
 }
