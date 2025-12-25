@@ -12,8 +12,8 @@
   "startup": "application",
   "image": "bluenviron/mediamtx",
   "ports": {
-    "8556/tcp": 8554,    // ← Host 8556 → Container 8554
-    "1936/tcp": 1935     // ← Host 1936 → Container 1935
+    "8556/tcp": 8554,
+    "1936/tcp": 1935
   },
   "options": {
     "MTX_PROTOCOLS": "tcp",
