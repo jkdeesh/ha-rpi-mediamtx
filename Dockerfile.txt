@@ -1,25 +1,22 @@
-FROM debian:bookworm-slim
+ARG BUILD_FROM=debian:bookworm-slim
+FROM $BUILD_FROM
 
-ENV DEBIAN_FRONTEND=noninteractive
+# Install deps
+RUN apt-get update && apt-get install -y \
+    ffmpeg \
+    wget \
+    ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
 
-# Install ffmpeg and dependencies
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-        ffmpeg ca-certificates wget && \
-    rm -rf /var/lib/apt/lists/*
+# Install MediaMTX (latest arm64)
+RUN MEDIAMTX_VERSION=$(curl -s https://api.github.com/repos/bluenviron/mediamtx/releases/latest | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/') \
+    && wget https://github.com/bluenviron/mediamtx/releases/download/${MEDIAMTX_VERSION}/mediamtx_${MEDIAMTX_VERSION}_linux_arm64v8.tar.gz \
+    && tar -xzf mediamtx_${MEDIAMTX_VERSION}_linux_arm64v8.tar.gz -C /usr/local/bin/ mediamtx \
+    && chmod +x /usr/local/bin/mediamtx \
+    && rm mediamtx_${MEDIAMTX_VERSION}_linux_arm64v8.tar.gz
 
-# Install MediaMTX binary
-RUN wget -O /tmp/mediamtx.tar.gz \
-      https://github.com/bluenviron/mediamtx/releases/download/v1.15.5/mediamtx_v1.15.5_linux_arm64.tar.gz && \
-    tar xzf /tmp/mediamtx.tar.gz -C /usr/local/bin && \
-    rm /tmp/mediamtx.tar.gz && \
-    chmod +x /usr/local/bin/mediamtx
+# Copy scripts
+COPY run.sh /
+RUN chmod a+x /run.sh
 
-# Create config dir
-RUN mkdir -p /etc/mediamtx
-
-COPY run.sh /run.sh
-RUN chmod +x /run.sh
-
-WORKDIR /
-ENTRYPOINT ["/run.sh"]
+CMD [ "/run.sh" ]
