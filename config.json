@@ -8,7 +8,7 @@
   "startup": "application",
   "image": "bluenviron/mediamtx",
   "ports": {
-    "10554/tcp": null,
+    "8554/tcp": null,
     "1936/tcp": null,
     "8888/tcp": null,
     "8889/tcp": null
