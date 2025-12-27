@@ -1,20 +1,25 @@
 {
-  "name": "MediaMTX Add-on",
-  "version": "0.1.0",
+  "name": "MediaMTX Camera Server",
+  "version": "0.2.0",
   "slug": "mediamtx",
-  "description": "MediaMTX (RTSP/WebRTC) server",
+  "description": "MediaMTX + FFmpeg with direct access to USB cameras on HAOS",
   "arch": ["aarch64", "armv7"],
   "startup": "application",
   "boot": "auto",
+
   "ports": {
     "10544/tcp": 8554,
     "1936/tcp": 1935,
     "8888/tcp": 8888,
     "9997/tcp": 8889
   },
+
   "map": ["config:rw"],
   "full_access": true,
+  "host_network": false,
+  "privileged": ["SYS_RAWIO", "SYS_ADMIN"],
+
   "options": {},
   "schema": {},
-  "image": null
+  "image": "bluenviron/mediamtx"
 }
