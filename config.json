@@ -1,18 +1,25 @@
 {
-  "name": "MediaMTX Add-on",
-  "version": "latest",
+  "name": "MediaMTX Camera Server",
+  "version": "0.2.0",
   "slug": "mediamtx",
-  "description": "Create RTSP / WebRTC server to broadcast streams, thanks to https://github.com/bluenviron/mediamtx",
-  "arch": ["aarch64", "amd64", "armhf", "armv7"],
-  "boot": "auto",
+  "description": "MediaMTX + FFmpeg with direct access to USB cameras on HAOS",
+  "arch": ["aarch64", "armv7"],
   "startup": "application",
-  "image": "bluenviron/mediamtx",
+  "boot": "auto",
+
   "ports": {
-    "8554/tcp": null,
-    "1936/tcp": null,
-    "8888/tcp": null,
-    "8889/tcp": null
+    "10544/tcp": 8554,
+    "1936/tcp": 1935,
+    "8888/tcp": 8888,
+    "9997/tcp": 8889
   },
+
+  "map": ["config:rw"],
+  "full_access": true,
+  "host_network": false,
+  "privileged": ["SYS_RAWIO", "SYS_ADMIN"],
+
   "options": {},
-  "schema": {}
+  "schema": {},
+  "image": null
 }
