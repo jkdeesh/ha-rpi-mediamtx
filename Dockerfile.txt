@@ -1,8 +1,10 @@
-# syntax=docker/dockerfile:1
-FROM node:14-alpine as build
-ENV NODE_ENV=production
-WORKDIR /app
-COPY ["package.json", "package-lock.json*", "./"]
-RUN npm install --production
-COPY . .
-CMD [ "node", "index.js" ]
+FROM bluenviron/mediamtx:latest
+
+# Ensure we have a small shell (busybox is already in this image, but this is safe)
+# If not needed, you can skip install; most mediamtx images already have /bin/sh.
+# For HA add-ons, we just need a script entrypoint.
+
+COPY run.sh /run.sh
+RUN chmod +x /run.sh
+
+ENTRYPOINT ["/run.sh"]
