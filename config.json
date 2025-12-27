@@ -1,25 +1,27 @@
 {
-  "name": "MediaMTX Camera Server",
-  "version": "0.2.0",
-  "slug": "mediamtx",
-  "description": "MediaMTX + FFmpeg with direct access to USB cameras on HAOS",
-  "arch": ["aarch64", "armv7"],
-  "startup": "application",
+  "name": "MediaMTX + FFmpeg",
+  "version": "1.0.0",
+  "slug": "mediamtx_ffmpeg",
+  "description": "RTSP/WebRTC server with FFmpeg for /dev/video0 on Pi",
+  "arch": ["aarch64"],
+  "startup": "services",
   "boot": "auto",
-
-  "ports": {
-    "10544/tcp": 8554,
-    "1936/tcp": 1935,
-    "8888/tcp": 8888,
-    "9997/tcp": 8889
-  },
-
-  "map": ["config:rw"],
+  "init": false,
+  "privileged": true,
   "full_access": true,
-  "host_network": false,
-  "privileged": ["SYS_RAWIO", "SYS_ADMIN"],
-
-  "options": {},
-  "schema": {},
-  "image": "bluenviron/mediamtx"
+  "devices": ["/dev/video0:/dev/video0:rwm"],
+  "ports": {
+    "8554/tcp": 8554,
+    "8888/tcp": 8888,
+    "8889/tcp": 8889,
+    "8889/udp": 8889,
+    "1935/tcp": 1935,
+    "8000/udp": 8000,
+    "8001/udp": 8001
+  },
+  "map": ["config:rw"],
+  "schema": {
+    "log_level": "select(Select)",
+    "rtsp_port": "port?"
+  }
 }
